@@ -6,6 +6,19 @@ import Pagination from "../modules/Pagination";
 import Search from "../modules/Search";
 import Chart from "../modules/Chart";
 
+function getCurrencySymbol(currency) {
+  switch (currency) {
+    case "usd":
+      return "$";
+    case "eur":
+      return "€";
+    case "jpy":
+      return "¥";
+    default:
+      return "$";
+  }
+}
+
 function HomePage() {
   const [coins, setCoins] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +45,13 @@ function HomePage() {
   return (
     <div>
       <Search currency={currency} setCurrency={setCurrency} />
-      <TableCoin coins={coins} isLoading={isLoading} setChart={setChart} />
+      <TableCoin
+        coins={coins}
+        isLoading={isLoading}
+        setChart={setChart}
+        currency={currency}
+        getCurrencySymbol={getCurrencySymbol}
+      />
       <Pagination page={page} setPage={setPage} />
       {!!chart && (
         <Chart chart={chart} setChart={setChart} currency={currency} />
